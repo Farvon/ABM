@@ -87,12 +87,6 @@ const CompCreateClient = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Status</label>
-          {/* <input
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            type="text"
-            className="form-control"
-          /> */}
           <br />
           <select onChange={(e) => setStatus(e.target.value)}>
             <option value="Actual">Actual</option>
