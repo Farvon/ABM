@@ -11,21 +11,20 @@ const CompCreateClient = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [clientStatus, setClientStatus] = useState("");
+  const [clientStatus, setClientStatus] = useState(1);
 
   const [status, setStatus] = useState([]);
-  const [len, setLen] = useState();
   const navigate = useNavigate();
 
   const [bandera, setBandera] = useState(true);
 
   useEffect(() => {
     getStatus().then((data) => setStatus(data));
-    console.log(status);
   }, []);
 
   const getStatus = async () => {
     const res = await axios.get(URI2);
+
     return res.data;
   };
 
@@ -50,7 +49,7 @@ const CompCreateClient = () => {
   return (
     <div>
       <h3>Creat POST</h3>
-      {status && status.length > 0 ? (
+      {status ? (
         <form onSubmit={store}>
           <div className="mb-3">
             <label className="form-label">Nombre</label>
@@ -106,14 +105,18 @@ const CompCreateClient = () => {
 
             <select onChange={(e) => setClientStatus(e.target.value)}>
               {status.map((el) => {
-                <option value={el.id}>{el.status}</option>;
+                return (
+                  <option value={el.id} key={el.id}>
+                    {el.status}
+                  </option>
+                );
               })}
             </select>
           </div>
           <button type="submit" className="btn btn-primary">
             Agregar
           </button>
-          {bandera == false ? <h2>Debe agregar todos los campos</h2> : <></>}
+          {bandera === false ? <h2>Debe agregar todos los campos</h2> : <></>}
         </form>
       ) : null}
     </div>
