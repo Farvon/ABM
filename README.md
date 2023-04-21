@@ -2,9 +2,12 @@
 
 ##Para crear la base de datos, se debe crear clientesdb y luego importar el archivo clientesdb.sql.
 
-##Para levantar la base de datos: node/node app
+<h4>##Realizar un "npm install" en /node y /react-front
+<br></br>
 
-##Para levantar la aplicación: react-front/npm start
+##Para levantar la base de datos: node/node run dev
+
+##Para levantar la aplicación: react-front/npm start</h4>
 
 ##Participantes: Chiavon, Facundo; 
                    Gardella, Facundo; 
