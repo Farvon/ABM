@@ -87,6 +87,11 @@ const CompShowClients = () => {
               Nuevo Cliente
             </button>
           </Link>
+          <Link to="/showStatus" className="btn btn-secondary mt-2 mb-2">
+            <button type="submit" className="btn btn-secondary">
+              Lista de Estados
+            </button>
+          </Link>
         </div>
       </div>
     </div>
