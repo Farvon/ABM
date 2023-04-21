@@ -10,7 +10,7 @@ const CompEditClient = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [clientStatus, setClientStatus] = useState(1);
+  const [clientStatus, setClientStatus] = useState();
   const [bandera, setBandera] = useState(true);
 
   const [status, setStatus] = useState([]);
@@ -37,6 +37,11 @@ const CompEditClient = () => {
     }
   };
 
+  const getStatus = async () => {
+    const res = await axios.get(URI2);
+    setStatus(res.data);
+  };
+
   const getClientById = async () => {
     const res = await axios.get(URI + id);
     setName(res.data.name);
@@ -48,13 +53,8 @@ const CompEditClient = () => {
 
   useEffect(() => {
     getClientById();
-    getStatus().then((data) => setStatus(data));
+    getStatus();
   }, []);
-
-  const getStatus = async () => {
-    const res = await axios.get(URI2);
-    return res.data;
-  };
 
   return (
     <div>
@@ -112,11 +112,14 @@ const CompEditClient = () => {
           <div className="mb-3">
             <label className="form-label">Status</label>
             <select
+              required
               onChange={(e) => {
                 setClientStatus(e.target.value);
-                console.log(e.target.value);
               }}
             >
+              <option value="" selected>
+                Status
+              </option>
               {status.map((el) => {
                 return (
                   <option value={el.id} key={el.id}>
@@ -128,6 +131,11 @@ const CompEditClient = () => {
           </div>
           <button type="submit" className="btn btn-primary">
             Actualizar
+          </button>
+          <button className="btn btn-danger ">
+            <a className="text-decoration-none text-reset" href="/">
+              Cancelar
+            </a>
           </button>
 
           {bandera === false ? <h2>Debe agregar todos los campos</h2> : <></>}

@@ -19,13 +19,13 @@ const CompCreateClient = () => {
   const [bandera, setBandera] = useState(true);
 
   useEffect(() => {
-    getStatus().then((data) => setStatus(data));
+    getStatus();
   }, []);
 
   const getStatus = async () => {
     const res = await axios.get(URI2);
 
-    return res.data;
+    setStatus(res.data);
   };
 
   //procedimiento guardar
@@ -43,12 +43,11 @@ const CompCreateClient = () => {
     } else {
       setBandera(false);
       e.preventDefault();
-      console.log("No hay nombre");
     }
   };
   return (
     <div>
-      <h3>Creat POST</h3>
+      <h3>Creat Cliente</h3>
       {status ? (
         <form onSubmit={store}>
           <div className="mb-3">
@@ -78,12 +77,12 @@ const CompCreateClient = () => {
           <div className="mb-3">
             <label className="form-label">E-mail</label>
             <input
+              type="email"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
                 setBandera(true);
               }}
-              type="text"
               className="form-control"
             />
           </div>
@@ -103,7 +102,11 @@ const CompCreateClient = () => {
             <label className="form-label">Status</label>
             <br />
 
-            <select onChange={(e) => setClientStatus(e.target.value)}>
+            <select required onChange={(e) => setClientStatus(e.target.value)}>
+              <option value="" selected>
+                Status
+              </option>
+
               {status.map((el) => {
                 return (
                   <option value={el.id} key={el.id}>
@@ -115,6 +118,11 @@ const CompCreateClient = () => {
           </div>
           <button type="submit" className="btn btn-primary">
             Agregar
+          </button>
+          <button className="btn btn-danger ">
+            <a className="text-decoration-none text-reset" href="/">
+              Cancelar
+            </a>
           </button>
           {bandera === false ? <h2>Debe agregar todos los campos</h2> : <></>}
         </form>

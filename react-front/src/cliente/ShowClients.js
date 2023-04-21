@@ -30,7 +30,6 @@ const CompShowClients = () => {
 
   const getStatusId = (id) => {
     const estado = status.filter((el) => el.id === id);
-    console.log(estado[0].status);
     return estado[0].status;
   };
 
