@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 08:27 PM
+-- Generation Time: Apr 21, 2023 at 08:07 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -33,15 +33,31 @@ CREATE TABLE `clientes` (
   `address` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` bigint(30) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `id` bigint(20) NOT NULL,
+  `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `status`
 --
 
-INSERT INTO `clientes` (`id`, `name`, `address`, `email`, `phone`, `status`) VALUES
-(10, 'Facu', '27 Oeste', 'Far@far.com', 33642323323, 'Actual');
+INSERT INTO `status` (`id`, `status`) VALUES
+(7, 'Actual'),
+(8, 'Activo'),
+(9, 'Inactivo'),
+(10, 'Potencial'),
+(11, 'Probable'),
+(12, 'Nuevo');
 
 --
 -- Indexes for dumped tables
@@ -51,6 +67,13 @@ INSERT INTO `clientes` (`id`, `name`, `address`, `email`, `phone`, `status`) VAL
 -- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cliente_status` (`status`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -61,7 +84,23 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `cliente_status` FOREIGN KEY (`status`) REFERENCES `status` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
